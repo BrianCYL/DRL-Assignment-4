@@ -15,7 +15,7 @@ class Agent(object):
     def act(self, observation):
         """Returns an action given an observation."""
         # Convert observation to tensor
-        # observation = torch.FloatTensor(observation)
+        observation = torch.FloatTensor(observation)
         # Get action from policy
         action, _ = self.policy(observation)
         return torch.tanh(action).cpu().data.numpy().flatten()
