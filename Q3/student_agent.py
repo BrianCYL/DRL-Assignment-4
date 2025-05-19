@@ -19,21 +19,3 @@ class Agent(object):
         # Get action from policy
         action, _ = self.policy(observation)
         return torch.tanh(action).cpu().data.numpy().flatten()
-    
-# ckpt = torch.load("checkpoints/sac_humanoid_actor.pth")
-# mapping = {
-#     "fc1": "net.0",
-#     "fc2": "net.2",
-#     "fc3": "net.4",
-#     "mean": "mu_layer",
-#     "log_std": "log_std_layer"
-# }
-# new_dict = {}
-# for old_key, weight in ckpt.items():
-#     for src, dst in mapping.items():
-#         if old_key.startswith(src):
-#             new_key = old_key.replace(src, dst)
-#             new_dict[new_key] = weight
-#             break
-# torch.save(new_dict, "checkpoints/sac_humanoid_policy.pth")
-
