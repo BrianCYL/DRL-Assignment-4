@@ -9,7 +9,7 @@ class Agent(object):
     def __init__(self):
         self.action_space = gym.spaces.Box(-1.0, 1.0, (1,), np.float32)
         self.policy = GaussianPolicy(67, 21, 512)  # state_dim=67, action_dim=21
-        self.policy.load_state_dict(torch.load("checkpoints/sac_humanoid_policy.pth"))
+        self.policy.load_state_dict(torch.load("checkpoints/sac_humanoid_policy.pth", map_location=torch.device('cpu')))
         self.policy.eval()  # Set the policy to evaluation mode
     
     def act(self, observation):
@@ -18,4 +18,4 @@ class Agent(object):
         observation = torch.FloatTensor(observation)
         # Get action from policy
         action, _ = self.policy(observation)
-        return torch.tanh(action).cpu().data.numpy().flatten()
+        return torch.tanh(action).data.numpy().flatten()
